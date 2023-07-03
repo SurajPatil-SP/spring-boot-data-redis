@@ -28,6 +28,7 @@ public class ProductDao {
 	}
 
 	public Product findProductById(int id) {
+		System.out.println("called findProductById() from DB");
 		return (Product) template.opsForHash().get(HASH_KEY, id);
 	}
 
@@ -35,5 +36,15 @@ public class ProductDao {
 		template.opsForHash().delete(HASH_KEY, id);
 		return "Product Deleted !!!";
 	}
+	
+	public boolean updateProduct(Long id, Product product) {
+        try {
+            template.opsForHash().put(HASH_KEY, id, product);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
