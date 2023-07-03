@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,7 @@ public class ProductService {
 		return dao.deleteProduct(id);
 	}
 	
+	@CachePut(key = "#id", value = "Product")
 	public boolean updateProduct(Long id, Product product) {
         return dao.updateProduct(id, product);
     }
